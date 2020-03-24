@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es6",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": true,
+    "esModuleInterop": true
+  },
+//  "paths": {
+//    "src/*": [
+//      "src/*"
+//    ]
+//  },
+  "types": [
+    "node",
+    "chai",
+    "mocha"
+  ],
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "lib",
+    "**/tests/*"
+  ]
+}

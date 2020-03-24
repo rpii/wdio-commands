@@ -1,0 +1,55 @@
+{
+  "name": "@rpii/wdio-commands",
+  "version": "0.1.0",
+  "description": "Add task based commands to simplfy the webdriverio api
+  "main": "lib/wdio-commands",
+  "types": "lib/wdio-commands.d.ts",
+  "scripts": {
+    "clean": "rimraf ./lib",
+    "build": "tsc",
+    "test": "ts-mocha tests/**/*.test.ts",
+    "test2": "mocha -r ts-node/register  tests/*.test.ts",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json --project",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpii/wdio-commands.git"
+  },
+  "keywords": [
+    "webdriverio",
+    "commands",
+    "test"
+  ],
+  "author": "rpii",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rpii/wdio-commands/issues"
+  },
+  "homepage": "https://github.com/rpii/wdio-commands#readme",
+  "devDependencies": {
+    "rimraf": "^3.0.0",
+    "typescript": "^3.7.4",
+    "tslint": "5.20.1",
+    "prettier": "1.19.1",
+    "tslint-config-prettier": "1.18.0",
+    "chai": "^4.2.0",
+    "mocha": "^7.0.0",
+    "ts-node": "^8.6.2",
+    "ts-mocha": "",
+    "tsconfig-paths": "3.9.0",
+    "@types/node": "^13.1.7",
+    "@types/chai": "^4.2.7",
+    "@types/mocha": "^5.2.7"
+    "@rpii/wdio-report-events": "^0.1.0"
+  },
+
+  "mocha": {
+    "ui": "tdd"
+  }
+}

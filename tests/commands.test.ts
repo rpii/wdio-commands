@@ -12,7 +12,7 @@ suite('test suite for custom commands ', function () {
             capabilities: {
                 browserName: 'chrome'
             }
-        }).then((browser) => sync(() => {
+        }).then((browser: WebdriverIO.BrowserObject) => sync(() => {
                 commands.addCommands(browser);
                 browser.logMessage("Test Message");
                 browser.takeScreenshot("Test Screenshot Message");

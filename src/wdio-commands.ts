@@ -1,20 +1,25 @@
 const moment = require('moment');
 const path = require('path');
 const fs = require("fs-extra");
+
 import ReportEvents from "@rpii/wdio-report-events" ;
-import {BrowserObject, Element} from "webdriverio" ;
-import {CommandsApi} from "./wdio-commands-api" ;
-
 let eventReporter = new ReportEvents();
+import {Element, BrowserObject } from "@wdio/sync";
+export {Element, BrowserObject } from "@wdio/sync";
 
-export class Commands implements CommandsApi {
+class Commands {
+    defaultWaitTime:number;
 
-    logMessage(message: string): BrowserObject {
+    constructor() {
+        this.defaultWaitTime =  10000;
+    }
+
+    logMessage(message: string): any {
         eventReporter.logMessage(message);
         return browser;
     };
 
-    takeScreenshot(message: string): BrowserObject {
+    takeScreenshot(message: string) : any {
         const timestamp = moment().format('YYYYMMDD-HHmmss.SSS');
         fs.ensureDirSync('reports/html-reports/screenshots/');
         const filepath = path.join('reports/html-reports/screenshots/', timestamp + '.png');
@@ -27,8 +32,11 @@ export class Commands implements CommandsApi {
     //Selector commands
 
     setCheckBox(state: boolean): any {
+        // @ts-ignore
         console.log("Checkbox:" + this.isSelected());
+        // @ts-ignore
         if (this.isSelected() !== state) {
+            // @ts-ignore
             this.click();
         }
         return this;
@@ -36,17 +44,20 @@ export class Commands implements CommandsApi {
 
     isDisplayedWithin(timeout: number | undefined) : boolean {
         try {
+            // @ts-ignore
             return this.waitForDisplayed(timeout);
         } catch (err) {
             return false;
         }
     };
 
-
     waitForExistAndClick(pause: number = 0, timeout: number | undefined): any {
         browser.pause(pause);
+        // @ts-ignore
         if (this.waitForExist(timeout)) {
+            // @ts-ignore
             this.scrollIntoView();
+            // @ts-ignore
             this.click();
         }
         return this;
@@ -54,8 +65,11 @@ export class Commands implements CommandsApi {
 
     waitForVisibleAndClick(pause: number = 0, timeout: number | undefined): any {
         browser.pause(pause);
+        // @ts-ignore
         if (this.waitForDisplayed(timeout)) {
-            this.scrollIntoView()
+            // @ts-ignore
+            this.scrollIntoView();
+            // @ts-ignore
             this.click();
         }
         return this;
@@ -63,33 +77,42 @@ export class Commands implements CommandsApi {
 
     waitForExistAndSetValue(value: any, pause: number = 0, timeout: number | undefined): any {
         browser.pause(pause);
+        // @ts-ignore
         if (this.waitForExist(timeout)) {
+            // @ts-ignore
             this.scrollIntoView();
+            // @ts-ignore
             this.setValue(value);
         }
         return this;
     };
 
     waitForExistAndSelectByValue(value: any, timeout: number  | undefined): any {
+        // @ts-ignore
         if (this.waitForExist(timeout)) {
+            // @ts-ignore
             this.selectByValue(value);
         }
         return this;
     };
 
     waitForVisibleAndSetValue(value: string, timeout?: number | undefined): any {
+        // @ts-ignore
         if (this.waitForDisplayed(timeout)) {
+            // @ts-ignore
             this.setValue(value);
         }
         return this;
     };
 
-    waitForNotExist(timeout: number = 30000): any {
+    waitForNotExist(timeout: number = this.defaultWaitTime): any {
+        // @ts-ignore
         this.waitForExist(timeout, true);
         return this;
     };
 
-    waitForNotVisible(timeout: number = 30000): any {
+    waitForNotVisible(timeout: number = this.defaultWaitTime): any {
+        // @ts-ignore
         this.waitForDisplayed(timeout, true);
         return this;
     };
@@ -113,3 +136,4 @@ export class Commands implements CommandsApi {
     }
 }
 
+export default new Commands();

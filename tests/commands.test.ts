@@ -1,32 +1,22 @@
-import Commands  from "../src/wdio-commands" ;
 
 import  { expect } from  "chai";
+import commands from  "../src/wdio-commands";
+const { remote } = require('webdriverio');
+const sync = require('@wdio/sync').default;
 
-export class EventListener {
-
-    saveScreenshot(filepath) {
-        console.log("screenshot event sink:" + filepath) ;
-        expect(true,"screenshot event fired:" + filepath) ;
-    }
-
-    saveMessage(message) {
-        console.log("message event sink:" + message)
-        expect(true,"message event fired:" + message) ;
-    }
-}
-
-suite('test suite', function () {
-    let proxy = new ReportEvents() ;
-    let eventSink = new EventListener() ;
-    proxy.connectMessageEvent(eventSink.saveMessage.bind(this));
-    proxy.connectScreenshotEvent(eventSink.saveScreenshot.bind(this));
-    test('fire log message', function () {
-        console.log("firing message event") ;
-
-        proxy.logMessage("This is a test log message");
-    });
-    test('fire log screenshot', function () {
-        console.log("firing screenshot event") ;
-        proxy.logScreenshot("test.png");
+suite('test suite for custom commands ', function () {
+    test('load commands', function () {
+        remote({
+            runner: true,
+            outputDir: __dirname,
+            capabilities: {
+                browserName: 'chrome'
+            }
+        }).then((browser) => sync(() => {
+                commands.addCommands(browser);
+                browser.logMessage("Test Message");
+                browser.takeScreenshot("Test Screenshot Message");
+            })
+        );
     });
 });

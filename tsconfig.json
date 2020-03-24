@@ -8,21 +8,23 @@
     "strict": true,
     "esModuleInterop": true
   },
-//  "paths": {
-//    "src/*": [
-//      "src/*"
-//    ]
-//  },
+  "paths": {
+    "src/*": [
+      "src/*"
+    ]
+  },
+  "typeroots": [
+    "wdio-commands-api"
+  ],
   "types": [
     "node",
-    "@wdio/sync",
     "@rpii/wdio-report-events",
     "chai",
     "mocha"
   ],
   "include": [
     "src",
-    "node_modules/webdriverio/webdriverio.d.ts"
+    "@wdio/sync"
   ],
   "exclude": [
     "node_modules",

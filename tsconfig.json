@@ -15,10 +15,15 @@
 //  },
   "types": [
     "node",
+    "@wdio/sync",
+    "@rpii/wdio-report-events",
     "chai",
     "mocha"
   ],
-  "include": ["src"],
+  "include": [
+    "src",
+    "node_modules/webdriverio/webdriverio.d.ts"
+  ],
   "exclude": [
     "node_modules",
     "lib",

@@ -1,7 +1,7 @@
 {
   "name": "@rpii/wdio-commands",
   "version": "0.1.0",
-  "description": "Add task based commands to simplfy the webdriverio api
+  "description": "Add task based commands to simplfy the webdriverio api",
   "main": "lib/wdio-commands",
   "types": "lib/wdio-commands.d.ts",
   "scripts": {
@@ -33,19 +33,21 @@
   },
   "homepage": "https://github.com/rpii/wdio-commands#readme",
   "devDependencies": {
-    "rimraf": "^3.0.0",
-    "typescript": "^3.7.4",
-    "tslint": "5.20.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.8.3",
+    "tslint": "6.1.0",
     "prettier": "1.19.1",
     "tslint-config-prettier": "1.18.0",
     "chai": "^4.2.0",
     "mocha": "^7.0.0",
-    "ts-node": "^8.6.2",
+    "ts-node": "^8.8.1",
     "ts-mocha": "",
     "tsconfig-paths": "3.9.0",
-    "@types/node": "^13.1.7",
-    "@types/chai": "^4.2.7",
-    "@types/mocha": "^5.2.7"
+    "@types/node": "^13.9.3",
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^5.2.7",
+    "@wdio/sync": "^5.20.1",
+    "webdriverio": "^5.22.4",
     "@rpii/wdio-report-events": "^0.1.0"
   },
 

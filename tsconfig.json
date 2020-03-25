@@ -14,13 +14,14 @@
     ]
   },
   "typeroots": [
-    "wdio-commands-api"
+
   ],
   "types": [
     "node",
     "@rpii/wdio-report-events",
     "chai",
-    "mocha"
+    "mocha",
+    "./wdio-commands-api"
   ],
   "include": [
     "src",

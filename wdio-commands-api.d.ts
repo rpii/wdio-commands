@@ -12,22 +12,6 @@ declare global {
             waitForVisibleAndSetValue: (timeout: undefined | number) => Element;
             waitForNotExist: (timeout: undefined | number) => Element;
             waitForNotVisible: (timeout: undefined | number) => Element;
-            isSelected: () => boolean;
-            scrollIntoView: (scrollIntoViewOptions?: undefined | object | boolean) => void;
-            // setValue: (
-            //     value: string | number | boolean | object | any[],
-            //     options?: undefined | any
-            // ) => void;
-            waitForDisplayed: (
-                ms?: number,
-                reverse?: undefined | boolean,
-                error?: undefined | string
-            ) => boolean;
-            waitForExist: (
-                ms?: number,
-                reverse?: undefined | boolean,
-                error?: undefined | string
-            ) => boolean;
         }
 
         interface BrowserObject {

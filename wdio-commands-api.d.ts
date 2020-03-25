@@ -32,7 +32,7 @@ declare global {
 
         interface BrowserObject {
             logMessage: (message: string) => BrowserObject;
-            takeScreenshot: (message: string) => BrowserObject;
+            logScreenshot: (message: string) => BrowserObject;
         }
     }
 }

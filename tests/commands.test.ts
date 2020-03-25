@@ -15,7 +15,7 @@ suite('test suite for custom commands ', function () {
         }).then((browser: WebdriverIO.BrowserObject) => sync(() => {
                 commands.addCommands(browser);
                 browser.logMessage("Test Message");
-                browser.takeScreenshot("Test Screenshot Message");
+                browser.logScreenshot("Test Screenshot Message");
             })
         );
     });

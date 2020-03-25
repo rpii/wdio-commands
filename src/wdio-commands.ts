@@ -19,7 +19,7 @@ class Commands {
         return browser;
     };
 
-    takeScreenshot(message: string) : any {
+    logScreenshot(message: string) : any {
         const timestamp = moment().format('YYYYMMDD-HHmmss.SSS');
         fs.ensureDirSync('reports/html-reports/screenshots/');
         const filepath = path.join('reports/html-reports/screenshots/', timestamp + '.png');
@@ -120,7 +120,7 @@ class Commands {
     public addCommands(browser: WebdriverIO.BrowserObject) {
 
         browser.addCommand('logMessage', this.logMessage);
-        browser.addCommand('takeScreenshot', this.takeScreenshot);
+        browser.addCommand('logScreenshot', this.logScreenshot);
 
         //Selector commands
         browser.addCommand('setCheckBox', this.setCheckBox, true);

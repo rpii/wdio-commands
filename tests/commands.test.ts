@@ -1,4 +1,4 @@
-
+//TODO fix this when there is time.  testing in a real app
 import  { expect } from  "chai";
 import commands from  "../src/wdio-commands";
 const { remote } = require('webdriverio');

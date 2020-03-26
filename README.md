@@ -7,13 +7,13 @@ This package adds the following commands to the WebDriverIO Element:
 ```
             setCheckBox: (state: boolean) => Element;
             isDisplayedWithin: (timeout: undefined | number) => boolean;
-            waitForExistAndClick: (pause: number, timeout: undefined | number) => Element;
-            waitForVisibleAndClick: (pause: number, timeout: undefined | number) => Element;
-            waitForExistAndSetValue: (value: string, pause: number, timeout: undefined | number) => Element;
+            waitForExistAndClick: (timeout: undefined | number) => Element;
+            waitForDisplayedAndClick: (timeout: undefined | number) => Element;
+            waitForExistAndSetValue: (value: string, timeout: undefined | number) => Element;
             waitForExistAndSelectByValue: (value: string, timeout: undefined | number) => Element;
-            waitForVisibleAndSetValue: (timeout: undefined | number) => Element;
+            waitForDisplayedAndSetValue: (timeout: undefined | number) => Element;
             waitForNotExist: (timeout: undefined | number) => Element;
-            waitForNotVisible: (timeout: undefined | number) => Element;
+            waitForNotDisplayed: (timeout: undefined | number) => Element;
 ```
 to use add to wdio.conf.js:
 

@@ -1,8 +1,8 @@
 const moment = require('moment');
 const path = require('path');
 const fs = require("fs-extra");
-
-import ReportEvents from "@rpii/wdio-report-events" ;
+import { String } from 'typescript-string-operations';
+import ReportEvents from '@rpii/wdio-report-events' ;
 let eventReporter = new ReportEvents();
 import {Element, BrowserObject } from "@wdio/sync";
 export {Element, BrowserObject } from "@wdio/sync";
@@ -110,20 +110,20 @@ class Commands {
     };
 
     waitUntilTextBecomes(text:string|RegExp , timeout?: number| undefined): any {
+
+        let value ;
         // @ts-ignore
         this.waitUntil(function() {
             // @ts-ignore
-            let value = this.getText();
+            value = this.getText();
             if (text instanceof RegExp) {
                 return text.test(value) ;
             } else {
                 return text == value;
             }
-        },
-        {
-            "timeout" : timeout,
-            "timeoutMsg" : "Text did not appear"
-        });
+        }, timeout );
+
+        console.log(String.Format("Text '{0}' did not appear in {1}, value was {2}",text,timeout, value)) ;
         return this;
     };
 

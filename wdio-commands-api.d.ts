@@ -1,5 +1,4 @@
 // Merge namespace with global WebdriverIO
-export { }; //This file needs to be a module
 declare global {
     export namespace WebdriverIO {
         interface Element {
@@ -12,6 +11,7 @@ declare global {
             waitForDisplayedAndSetValue: (timeout?: undefined | number) => Element;
             waitForNotExist: (timeout?: undefined | number) => Element;
             waitForNotDisplayed: (timeout?: undefined | number) => Element;
+            waitUntilTextBecomes: (text:string|RegExp , timeout?: number| undefined) => Element;
         }
         interface BrowserObject {
             logMessage: (message: string) => BrowserObject;
@@ -19,4 +19,4 @@ declare global {
         }
     }
 }
-
+export { }; //This file needs to be a module

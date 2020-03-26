@@ -109,6 +109,24 @@ class Commands {
         return this;
     };
 
+    waitUntilTextBecomes(text:string|RegExp , timeout?: number| undefined): any {
+        // @ts-ignore
+        this.waitUntil(function() {
+            // @ts-ignore
+            let value = this.getText();
+            if (text instanceof RegExp) {
+                return text.test(value) ;
+            } else {
+                return text == value;
+            }
+        },
+        {
+            "timeout" : timeout,
+            "timeoutMsg" : "Text did not appear"
+        });
+        return this;
+    };
+
     public addCommands(browser: WebdriverIO.BrowserObject) {
 
         browser.addCommand('logMessage', this.logMessage);
@@ -124,7 +142,7 @@ class Commands {
         browser.addCommand('waitForDisplayedAndSetValue', this.waitForDisplayedAndSetValue, true);
         browser.addCommand('waitForNotExist', this.waitForNotExist, true);
         browser.addCommand('waitForNotDisplayed', this.waitForNotDisplayed, true);
-
+        browser.addCommand('waitUntilTextBecomes', this.waitUntilTextBecomes, true);
     }
 }
 

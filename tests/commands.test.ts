@@ -16,6 +16,12 @@ suite('test suite for custom commands ', function () {
                 commands.addCommands(browser);
                 browser.logMessage("Test Message");
                 browser.logScreenshot("Test Screenshot Message");
+                let sel =$("\\div[@id='test']");
+                sel.isDisplayedWithin(2000) ;
+                sel.waitForExistAndClick() ;
+                sel.waitForDisplayedAndClick() ;
+                sel.waitForNotExist() ;
+                sel.waitForNotDisplayed() ;
             })
         );
     });

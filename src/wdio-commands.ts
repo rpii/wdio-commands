@@ -8,11 +8,6 @@ import {Element, BrowserObject } from "@wdio/sync";
 export {Element, BrowserObject } from "@wdio/sync";
 
 class Commands {
-    defaultWaitTime:number;
-
-    constructor() {
-        this.defaultWaitTime =  10000;
-    }
 
     logMessage(message: string): any {
         eventReporter.logMessage(message);
@@ -42,7 +37,7 @@ class Commands {
         return this;
     };
 
-    isDisplayedWithin(timeout: number | undefined) : boolean {
+    isDisplayedWithin(timeout?: number | undefined) : boolean {
         try {
             // @ts-ignore
             return this.waitForDisplayed(timeout);
@@ -51,8 +46,7 @@ class Commands {
         }
     };
 
-    waitForExistAndClick(pause: number = 0, timeout: number | undefined): any {
-        browser.pause(pause);
+    waitForExistAndClick( timeout?: number | undefined): any {
         // @ts-ignore
         if (this.waitForExist(timeout)) {
             // @ts-ignore
@@ -63,8 +57,7 @@ class Commands {
         return this;
     };
 
-    waitForVisibleAndClick(pause: number = 0, timeout: number | undefined): any {
-        browser.pause(pause);
+    waitForDisplayedAndClick(timeout?: number | undefined): any {
         // @ts-ignore
         if (this.waitForDisplayed(timeout)) {
             // @ts-ignore
@@ -75,8 +68,7 @@ class Commands {
         return this;
     };
 
-    waitForExistAndSetValue(value: any, pause: number = 0, timeout: number | undefined): any {
-        browser.pause(pause);
+    waitForExistAndSetValue(value: any, timeout?: number | undefined): any {
         // @ts-ignore
         if (this.waitForExist(timeout)) {
             // @ts-ignore
@@ -87,7 +79,7 @@ class Commands {
         return this;
     };
 
-    waitForExistAndSelectByValue(value: any, timeout: number  | undefined): any {
+    waitForExistAndSelectByValue(value: any, timeout?: number  | undefined): any {
         // @ts-ignore
         if (this.waitForExist(timeout)) {
             // @ts-ignore
@@ -96,7 +88,7 @@ class Commands {
         return this;
     };
 
-    waitForVisibleAndSetValue(value: string, timeout?: number | undefined): any {
+    waitForDisplayedAndSetValue(value: string, timeout?: number | undefined): any {
         // @ts-ignore
         if (this.waitForDisplayed(timeout)) {
             // @ts-ignore
@@ -105,13 +97,13 @@ class Commands {
         return this;
     };
 
-    waitForNotExist(timeout: number = this.defaultWaitTime): any {
+    waitForNotExist(timeout?: number| undefined): any {
         // @ts-ignore
         this.waitForExist(timeout, true);
         return this;
     };
 
-    waitForNotVisible(timeout: number = this.defaultWaitTime): any {
+    waitForNotDisplayed(timeout?: number| undefined): any {
         // @ts-ignore
         this.waitForDisplayed(timeout, true);
         return this;
@@ -126,12 +118,12 @@ class Commands {
         browser.addCommand('setCheckBox', this.setCheckBox, true);
         browser.addCommand('isDisplayedWithin', this.isDisplayedWithin, true);
         browser.addCommand('waitForExistAndClick', this.waitForExistAndClick, true);
-        browser.addCommand('waitForVisibleAndClick', this.waitForVisibleAndClick, true);
+        browser.addCommand('waitForDisplayedAndClick', this.waitForDisplayedAndClick, true);
         browser.addCommand('waitForExistAndSetValue', this.waitForExistAndSetValue, true);
         browser.addCommand('waitForExistAndSelectByValue', this.waitForExistAndSelectByValue, true);
-        browser.addCommand('waitForVisibleAndSetValue', this.waitForExistAndSetValue, true);
+        browser.addCommand('waitForDisplayedAndSetValue', this.waitForDisplayedAndSetValue, true);
         browser.addCommand('waitForNotExist', this.waitForNotExist, true);
-        browser.addCommand('waitForNotVisible', this.waitForNotVisible, true);
+        browser.addCommand('waitForNotDisplayed', this.waitForNotDisplayed, true);
 
     }
 }

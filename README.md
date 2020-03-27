@@ -1,4 +1,7 @@
 # @rpii/wdio-commands
+##NOTICE
+This is a work in progress. Dont have a way to test it remotely other than publish.
+Sorry for any problems...These are tough times
 
 ## Usage
 Typescript package which provides aggregated webdriver.io commands to perform complex actions

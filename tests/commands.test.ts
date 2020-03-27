@@ -6,23 +6,23 @@ const sync = require('@wdio/sync').default;
 
 suite('test suite for custom commands ', function () {
     test('load commands', function () {
-        remote({
+        let browser ;
+        browser = await remote({
             runner: true,
             outputDir: __dirname,
             capabilities: {
                 browserName: 'chrome'
             }
-        }).then((browser: WebdriverIO.BrowserObject) => sync(() => {
-                commands.addCommands(browser);
-                browser.logMessage("Test Message");
-                browser.logScreenshot("Test Screenshot Message");
-                let sel =$("\\div[@id='test']");
-                sel.isDisplayedWithin(2000) ;
-                sel.waitForExistAndClick() ;
-                sel.waitForDisplayedAndClick() ;
-                sel.waitForNotExist() ;
-                sel.waitForNotDisplayed() ;
-            })
-        );
+        });
+        // let elem = await browser.$('#foo')
+        commands.addCommands(browser);
+        browser.logMessage("Test Message");
+        browser.logScreenshot("Test Screenshot Message");
+        let sel =$("\\div[@id='test']");
+        sel.isDisplayedWithin(2000) ;
+        sel.waitForExistAndClick() ;
+        sel.waitForDisplayedAndClick() ;
+        sel.waitForNotExist() ;
+        sel.waitForNotDisplayed() ;
     });
 });

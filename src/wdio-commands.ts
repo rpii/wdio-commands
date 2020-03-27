@@ -109,22 +109,42 @@ class Commands {
         return this;
     };
 
-    waitUntilTextBecomes(text:string|RegExp , timeout?: number| undefined): any {
+    trimText(text:string| number) {
+        /**
+         * convert value into string
+         */
+        text = (typeof text === 'number')
+            ? text.toString()
+            : text;
+        return text
+            .trim() // strip leading and trailing white-space characters
+            .replace(/\s+/, ' ') // replace sequences of whitespace characters by a single space
+    }
 
+    waitUntilTextBecomes(text:string|RegExp , timeout?: number| undefined): boolean {
         let value ;
-        // @ts-ignore
-        this.waitUntil(function() {
-            // @ts-ignore
-            value = this.getText();
-            if (text instanceof RegExp) {
-                return text.test(value) ;
-            } else {
-                return text == value;
+        try {
+            if (! (text instanceof RegExp)) {
+               text =  this.trimText(text) ;
             }
-        }, timeout );
+            // @ts-ignore
+            browser.waitUntil( async () => {
+                // @ts-ignore
+                value = await $(this.selector).getText();
+                if (text instanceof RegExp) {
+                    return text.test(value);
+                } else {
+
+                    return text.localeCompare(value) == 0;
+                }
+            }, timeout);
+            return true ;
+        } catch(ex) {
+            console.log(ex) ;
+        }
 
         console.log(String.Format("Text '{0}' did not appear in {1}, value was {2}",text,timeout, value)) ;
-        return this;
+        return false ;
     };
 
     public addCommands(browser: WebdriverIO.BrowserObject) {

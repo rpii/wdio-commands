@@ -121,27 +121,20 @@ class Commands {
     waitUntilTextBecomes(text:string|RegExp , timeout?: number| undefined): boolean {
         let value ;
         try {
-            // if (! (text instanceof RegExp)) {
-            //
-            //    text =  this.trimText(text) ;
-            // }
+            let fn = (text instanceof RegExp)
+                ? (value:string) => { return text.test(value) ; }
+                : (value:string) => { return  text.localeCompare(value) == 0 ;};
             // @ts-ignore
             browser.waitUntil( async () => {
                 // @ts-ignore
+                //trick, reevaluate selector to prevent stale element
                 value = await $(this.selector).getText();
-                if (text instanceof RegExp) {
-                    return text.test(value);
-                } else {
-
-                    return text.localeCompare(value) == 0;
-                }
+                return fn(value) ;
             }, timeout);
             return true ;
         } catch(ex) {
             console.log(ex) ;
         }
-
-        console.log(String.Format("Text '{0}' did not appear in {1}, value was {2}",text,timeout, value)) ;
         return false ;
     };
 

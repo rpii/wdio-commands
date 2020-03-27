@@ -109,24 +109,22 @@ class Commands {
         return this;
     };
 
-    trimText(text:string| number) {
-        /**
-         * convert value into string
-         */
+    trimText(text:string| number) : string {
         text = (typeof text === 'number')
             ? text.toString()
             : text;
         return text
             .trim() // strip leading and trailing white-space characters
             .replace(/\s+/, ' ') // replace sequences of whitespace characters by a single space
-    }
+    };
 
     waitUntilTextBecomes(text:string|RegExp , timeout?: number| undefined): boolean {
         let value ;
         try {
-            if (! (text instanceof RegExp)) {
-               text =  this.trimText(text) ;
-            }
+            // if (! (text instanceof RegExp)) {
+            //
+            //    text =  this.trimText(text) ;
+            // }
             // @ts-ignore
             browser.waitUntil( async () => {
                 // @ts-ignore

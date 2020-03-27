@@ -17,6 +17,7 @@ This package adds the following commands to the WebDriverIO Element:
             waitForDisplayedAndSetValue: (timeout: undefined | number) => Element;
             waitForNotExist: (timeout: undefined | number) => Element;
             waitForNotDisplayed: (timeout: undefined | number) => Element;
+            waitUntilTextBecomes(text:string|RegExp , timeout?: number| undefined): boolean
 ```
 to use add to wdio.conf.js:
 

@@ -6,6 +6,8 @@ import ReportEvents from '@rpii/wdio-report-events' ;
 let eventReporter = new ReportEvents();
 import {Element, BrowserObject } from "@wdio/sync";
 export {Element, BrowserObject } from "@wdio/sync";
+//import refetchElement from 'node_modules/webdriverio/build/utils/refetchElement';
+
 
 class Commands {
 
@@ -27,8 +29,6 @@ class Commands {
     //Selector commands
 
     setCheckBox(state: boolean): any {
-        // @ts-ignore
-        console.log("Checkbox:" + this.isSelected());
         // @ts-ignore
         if (this.isSelected() !== state) {
             // @ts-ignore
@@ -127,8 +127,20 @@ class Commands {
             // @ts-ignore
             browser.waitUntil( async () => {
                 // @ts-ignore
-                //trick, reevaluate selector to prevent stale element
-                value = await $(this.selector).getText();
+                try {
+                    //trick, reevaluate selector to prevent stale element
+                    // @ts-ignore
+                    value = await $(this.selector).getText();
+                } catch (error) {
+                    if (error.name === 'stale element reference') {
+                        //TODO fix this
+                        // const element = await refetchElement(this, commandName)
+                        // @ts-ignore
+                        value =  await $(this.selector).getText();
+                    } else {
+                        throw error;
+                    }
+                }
                 return fn(value) ;
             }, timeout);
             return true ;

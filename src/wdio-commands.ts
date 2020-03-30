@@ -119,7 +119,7 @@ class Commands {
     };
 
     waitUntilTextBecomes(text:string|RegExp , timeout?: number| undefined): boolean {
-        let value ;
+        let value:string  ;
         try {
             let fn = (text instanceof RegExp)
                 ? (value:string) => { return text.test(value) ; }
@@ -136,7 +136,8 @@ class Commands {
                         //TODO fix this
                         // const element = await refetchElement(this, commandName)
                         // @ts-ignore
-                        value =  await $(this.selector).getText();
+                        // value =  await $(this.selector).getText();
+                        console.error("'stale element reference:" + this.selector) ;
                     } else {
                         throw error;
                     }

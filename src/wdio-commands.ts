@@ -133,7 +133,7 @@ class Commands {
                     value = await $(this.selector).getText();
                 } catch (error) {
                     if (error.name === 'stale element reference') {
-                        //TODO fix this
+                        //TODO research how to fix fix this
                         // const element = await refetchElement(this, commandName)
                         // @ts-ignore
                         // value =  await $(this.selector).getText();

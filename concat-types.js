@@ -1,3 +1,3 @@
 const concat = require('concat');
-concat(["./wdio-commands-api.d.ts.stub" , "./lib/wdio-commands.d.ts"], "./wdio-commands.d.ts")
+concat(["./src/wdio-commands-api.d.ts.stub" , "./lib/wdio-commands.d.ts"], "./lib/wdio-commands-api.d.ts")
     .then(result => console.log(result));

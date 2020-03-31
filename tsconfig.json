@@ -21,11 +21,12 @@
     "@rpii/wdio-report-events",
     "chai",
     "mocha",
-    "./wdio-commands-api"
+    "@wdio/sync",
+    "./lib/wdio-commands-api"
   ],
   "include": [
     "src",
-    "@wdio/sync"
+
   ],
   "exclude": [
     "node_modules",

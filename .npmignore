@@ -1,4 +1,6 @@
 src
 .idea
 *.log
+node_modules
+tests
 

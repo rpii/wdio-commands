@@ -1,8 +1,7 @@
 # @rpii/wdio-commands
 ##NOTICE
-This is a work in progress. Dont have a way to test it remotely other than publish.
-Sorry for any problems...These are tough times.  With 2.0 code is working and types are resolving.
-Some async issue still occurs with waitUntilTextBecomes, but if your test runs less than 90 seconds its ok.  Still looking at that.
+This is a work in progress. Working to get it compatibile with webdriverio 6.  
+If you are using webdriverio version 5the previous version is just fine.
 
 ## Usage
 Typescript package which provides aggregated webdriver.io commands to perform complex actions

@@ -1,7 +1,6 @@
 const moment = require('moment');
 const path = require('path');
 const fs = require("fs-extra");
-import { String } from 'typescript-string-operations';
 import ReportEvents from '@rpii/wdio-report-events' ;
 let eventReporter = new ReportEvents();
 import {Element, BrowserObject } from "@wdio/sync";
@@ -16,7 +15,7 @@ class Commands {
         return browser;
     };
 
-    logScreenshot(message: string) : any {
+    logScreenshot(message: string): any {
         const timestamp = moment().format('YYYYMMDD-HHmmss.SSS');
         fs.ensureDirSync('reports/html-reports/screenshots/');
         const filepath = path.join('reports/html-reports/screenshots/', timestamp + '.png');
@@ -37,18 +36,18 @@ class Commands {
         return this;
     };
 
-    isDisplayedWithin(timeout?: number | undefined) : boolean {
+    isDisplayedWithin(timeout?: number | undefined): boolean {
         try {
             // @ts-ignore
-            return this.waitForDisplayed(timeout);
+            return this.waitForDisplayed({timeout: timeout});
         } catch (err) {
             return false;
         }
     };
 
-    waitForExistAndClick( timeout?: number | undefined): any {
+    waitForExistAndClick(timeout?: number | undefined): any {
         // @ts-ignore
-        if (this.waitForExist(timeout)) {
+        if (this.waitForExist({timeout: timeout})) {
             // @ts-ignore
             this.scrollIntoView();
             // @ts-ignore
@@ -59,7 +58,7 @@ class Commands {
 
     waitForDisplayedAndClick(timeout?: number | undefined): any {
         // @ts-ignore
-        if (this.waitForDisplayed(timeout)) {
+        if (this.waitForDisplayed({timeout: timeout})) {
             // @ts-ignore
             this.scrollIntoView();
             // @ts-ignore
@@ -68,9 +67,19 @@ class Commands {
         return this;
     };
 
+    waitForEnabledAndClick(timeout?: number | undefined): any {
+        // @ts-ignore
+        if (this.waitForEnabled({timeout: timeout})) {
+            // @ts-ignore
+            this.scrollIntoView();
+            // @ts-ignore
+            this.click();
+        }
+        return this;
+    };
     waitForExistAndSetValue(value: any, timeout?: number | undefined): any {
         // @ts-ignore
-        if (this.waitForExist(timeout)) {
+        if (this.waitForExist({timeout: timeout})) {
             // @ts-ignore
             this.scrollIntoView();
             // @ts-ignore
@@ -79,9 +88,9 @@ class Commands {
         return this;
     };
 
-    waitForExistAndSelectByValue(value: any, timeout?: number  | undefined): any {
+    waitForExistAndSelectByValue(value: any, timeout?: number | undefined): any {
         // @ts-ignore
-        if (this.waitForExist(timeout)) {
+        if (this.waitForExist({timeout: timeout})) {
             // @ts-ignore
             this.selectByValue(value);
         }
@@ -90,26 +99,34 @@ class Commands {
 
     waitForDisplayedAndSetValue(value: string, timeout?: number | undefined): any {
         // @ts-ignore
-        if (this.waitForDisplayed(timeout)) {
+        if (this.waitForDisplayed({timeout: timeout})) {
             // @ts-ignore
             this.setValue(value);
         }
         return this;
     };
 
-    waitForNotExist(timeout?: number| undefined): any {
+    waitForEnabledAndSetValue(value: string, timeout?: number | undefined): any {
         // @ts-ignore
-        this.waitForExist(timeout, true);
+        if (this.waitForEnabled({timeout: timeout})) {
+            // @ts-ignore
+            this.setValue(value);
+        }
+        return this;
+    };
+    waitForNotExist(timeout?: number | undefined): any {
+        // @ts-ignore
+        this.waitForExist({timeout: timeout, reverse: true});
         return this;
     };
 
-    waitForNotDisplayed(timeout?: number| undefined): any {
+    waitForNotDisplayed(timeout?: number | undefined): any {
         // @ts-ignore
-        this.waitForDisplayed(timeout, true);
+        this.waitForDisplayed({timeout: timeout, reverse: true});
         return this;
     };
 
-    trimText(text:string| number) : string {
+    trimText(text: string | number): string {
         text = (typeof text === 'number')
             ? text.toString()
             : text;
@@ -118,14 +135,18 @@ class Commands {
             .replace(/\s+/, ' ') // replace sequences of whitespace characters by a single space
     };
 
-    waitUntilTextBecomes(text:string|RegExp , timeout?: number| undefined): boolean {
-        let value:string  ;
+    waitUntilTextBecomes(text: string | RegExp, timeout?: number | undefined): boolean {
+        let value: string;
         try {
             let fn = (text instanceof RegExp)
-                ? (value:string) => { return text.test(value) ; }
-                : (value:string) => { return  text.localeCompare(value) == 0 ;};
+                ? (value: string) => {
+                    return text.test(value);
+                }
+                : (value: string) => {
+                    return text.localeCompare(value) == 0;
+                };
             // @ts-ignore
-            browser.waitUntil( async () => {
+            browser.waitUntil(async () => {
                 // @ts-ignore
                 try {
                     //trick, reevaluate selector to prevent stale element
@@ -137,19 +158,37 @@ class Commands {
                         // const element = await refetchElement(this, commandName)
                         // @ts-ignore
                         // value =  await $(this.selector).getText();
-                        console.error("'stale element reference:" + this.selector) ;
+                        console.error("'stale element reference:" + this.selector);
                     } else {
                         throw error;
                     }
                 }
-                return fn(value) ;
+                return fn(value);
             }, timeout);
-            return true ;
-        } catch(ex) {
-            console.log(ex) ;
+            return true;
+        } catch (ex) {
+            console.log(ex);
         }
-        return false ;
+        return false;
     };
+
+    // setValue(value:string ) {
+    //      const webBrowser = browser.capabilities.browserName.toLowerCase();
+    //
+    //      if (webBrowser === 'microsoftedge') {
+    //          browser.execute((el, val) => {
+    //              const regex = /\'(.*)\'/; // pulls name out of xpath
+    //              const extractedName = el.match(regex)[1];
+    //
+    //              document.getElementsByName(extractedName)[0].focus();
+    //              document.getElementsByName(extractedName)[0].value = val;
+    //              // @ts-ignore
+    //          }, $(this.selector), value);
+    //      }
+    //      else {
+    //          this.setValue(value);
+    //      }
+    //  });
 
     public addCommands(browser: WebdriverIO.BrowserObject) {
 
@@ -161,12 +200,16 @@ class Commands {
         browser.addCommand('isDisplayedWithin', this.isDisplayedWithin, true);
         browser.addCommand('waitForExistAndClick', this.waitForExistAndClick, true);
         browser.addCommand('waitForDisplayedAndClick', this.waitForDisplayedAndClick, true);
+        browser.addCommand('waitForEnabledAndClick', this.waitForDisplayedAndClick, true);
         browser.addCommand('waitForExistAndSetValue', this.waitForExistAndSetValue, true);
         browser.addCommand('waitForExistAndSelectByValue', this.waitForExistAndSelectByValue, true);
         browser.addCommand('waitForDisplayedAndSetValue', this.waitForDisplayedAndSetValue, true);
+        browser.addCommand('waitForEnabledAndSetValue', this.waitForDisplayedAndSetValue, true);
         browser.addCommand('waitForNotExist', this.waitForNotExist, true);
         browser.addCommand('waitForNotDisplayed', this.waitForNotDisplayed, true);
         browser.addCommand('waitUntilTextBecomes', this.waitUntilTextBecomes, true);
+        // browser.addCommand('setInputValue', function(element, value) ;
+
     }
 }
 

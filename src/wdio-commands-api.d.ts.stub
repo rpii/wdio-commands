@@ -14,7 +14,6 @@ declare global {
             waitForNotExist: (timeout?: undefined | number) => Element;
             waitForNotDisplayed: (timeout?: undefined | number) => Element;
             waitUntilTextBecomes: (text:string|RegExp, timeout?: number| undefined) => boolean;
-            waitUntilTextBecomes: (text:string|RegExp, timeout?: number| undefined) => boolean;
         }
         interface BrowserObject {
             logMessage: (message: string) => BrowserObject;

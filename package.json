@@ -1,6 +1,6 @@
 {
   "name": "@rpii/wdio-commands",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "Add task based commands to simplfy the webdriverio api,compatible with v6",
   "main": "lib/wdio-commands",
   "types": "lib/wdio-commands-api.d.ts",

@@ -9,8 +9,8 @@ declare global {
             waitForEnabledAndClick: (timeout?: undefined | number) => Element;
             waitForExistAndSetValue: (value: string, timeout?: undefined | number) => Element;
             waitForExistAndSelectByValue: (value: string, timeout?: undefined | number) => Element;
-            waitForDisplayedAndSetValue: (timeout?: undefined | number) => Element;
-            waitForEnabledAndSetValue: (timeout?: undefined | number) => Element;
+            waitForDisplayedAndSetValue: (value: string, timeout?: undefined | number) => Element;
+            waitForEnabledAndSetValue: (value: string, timeout?: undefined | number) => Element;
             waitForNotExist: (timeout?: undefined | number) => Element;
             waitForNotDisplayed: (timeout?: undefined | number) => Element;
             waitUntilTextBecomes: (text:string|RegExp, timeout?: number| undefined) => boolean;

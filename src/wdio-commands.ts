@@ -164,7 +164,7 @@ class Commands {
                     }
                 }
                 return fn(value);
-            }, timeout);
+            }, {timeout:  timeout});
             return true;
         } catch (ex) {
             console.log(ex);

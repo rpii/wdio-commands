@@ -3,6 +3,7 @@ declare global {
     export namespace WebdriverIO {
         interface Element {
             setCheckBox: (state: boolean) => Element;
+            setInputValue: (fx:any, value: string) => Element;
             isDisplayedWithin: (timeout?: undefined | number) => boolean;
             waitForExistAndClick: (timeout?: undefined | number) => Element;
             waitForDisplayedAndClick: (timeout?: undefined | number) => Element;

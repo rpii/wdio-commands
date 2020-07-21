@@ -24,5 +24,6 @@ suite('test suite for custom commands ', function () {
         sel.waitForDisplayedAndClick() ;
         sel.waitForNotExist() ;
         sel.waitForNotDisplayed() ;
+        sel.setValue("test") ;
     });
 });

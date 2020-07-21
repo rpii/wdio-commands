@@ -172,23 +172,24 @@ class Commands {
         return false;
     };
 
-    // setValue(value:string ) {
-    //      const webBrowser = browser.capabilities.browserName.toLowerCase();
-    //
-    //      if (webBrowser === 'microsoftedge') {
-    //          browser.execute((el, val) => {
-    //              const regex = /\'(.*)\'/; // pulls name out of xpath
-    //              const extractedName = el.match(regex)[1];
-    //
-    //              document.getElementsByName(extractedName)[0].focus();
-    //              document.getElementsByName(extractedName)[0].value = val;
-    //              // @ts-ignore
-    //          }, $(this.selector), value);
-    //      }
-    //      else {
-    //          this.setValue(value);
-    //      }
-    //  });
+    setInputValue(originalSetValue:any, value:string ) {
+        //@ts-ignore
+         const webBrowser = browser.capabilities.browserName.toLowerCase();
+
+         if (webBrowser === 'microsoftedge') {
+             browser.execute((el, val) => {
+                 const regex = /\'(.*)\'/; // pulls name out of xpath
+                 const extractedName = el.match(regex)[1];
+
+                 document.getElementsByName(extractedName)[0].focus();
+                 (<HTMLInputElement>document.getElementsByName(extractedName)[0]).value = val;
+                 // @ts-ignore
+             }, $(this.selector), value);
+         }
+         else {
+             originalSetValue(value);
+         }
+     };
 
     public addCommands(browser: WebdriverIO.BrowserObject) {
 
@@ -208,8 +209,9 @@ class Commands {
         browser.addCommand('waitForNotExist', this.waitForNotExist, true);
         browser.addCommand('waitForNotDisplayed', this.waitForNotDisplayed, true);
         browser.addCommand('waitUntilTextBecomes', this.waitUntilTextBecomes, true);
-        // browser.addCommand('setInputValue', function(element, value) ;
-
+        // browser.overwriteCommand('setValue', (originalSetValue:any, value:string) => {
+        //     this.setInputValue(originalSetValue, value) ;
+        // }, true) ;
     }
 }
 

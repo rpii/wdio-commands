@@ -158,7 +158,7 @@ class Commands {
                         // const element = await refetchElement(this, commandName)
                         // @ts-ignore
                         // value =  await $(this.selector).getText();
-                        console.error("'stale element reference:" + this.selector);
+                        console.error("'wdio-command: stale element reference:" + this.selector.url);
                     } else {
                         throw error;
                     }

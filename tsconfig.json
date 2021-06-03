@@ -21,7 +21,7 @@
     "@rpii/wdio-report-events",
     "chai",
     "mocha",
-    "@wdio/sync",
+    "webdriverio/sync",
     "./lib/wdio-commands-api"
   ],
   "include": [

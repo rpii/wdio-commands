@@ -1,7 +1,8 @@
 # @rpii/wdio-commands
-##NOTICE
-This is a work in progress. Working to get it compatibile with webdriverio 6.  
-If you are using webdriverio version 5the previous version is just fine.
+
+####Newest Feature:
+
+    Update typescript types for webdriverio 7.7
 
 ## Usage
 Typescript package which provides aggregated webdriver.io commands to perform complex actions

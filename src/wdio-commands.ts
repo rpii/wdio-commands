@@ -2,38 +2,36 @@ const moment = require('moment');
 const path = require('path');
 const fs = require("fs-extra");
 import ReportEvents from '@rpii/wdio-report-events' ;
+import WebdriverIO  from "../lib/wdio-commands-api" ;
+
 let eventReporter = new ReportEvents();
-import {Element, BrowserObject } from "@wdio/sync";
-export {Element, BrowserObject } from "@wdio/sync";
-//import refetchElement from 'node_modules/webdriverio/build/utils/refetchElement';
+
 
 
 class Commands {
 
-    logMessage(message: string): any {
+    logMessage(message: string) {
         eventReporter.logMessage(message);
-        return browser;
     };
 
-    logScreenshot(message: string): any {
+    logScreenshot(message: string) {
         const timestamp = moment().format('YYYYMMDD-HHmmss.SSS');
         fs.ensureDirSync('reports/html-reports/screenshots/');
         const filepath = path.join('reports/html-reports/screenshots/', timestamp + '.png');
+        //@ts-ignore
         browser.saveScreenshot(filepath);
         eventReporter.logMessage(message);
         eventReporter.logScreenshot(filepath);
-        return browser;
     };
 
     //Selector commands
 
-    setCheckBox(state: boolean): any {
+    setCheckBox(state: boolean): void {
         // @ts-ignore
         if (this.isSelected() !== state) {
             // @ts-ignore
             this.click();
         }
-        return this;
     };
 
     isDisplayedWithin(timeout?: number | undefined): boolean {
@@ -45,7 +43,7 @@ class Commands {
         }
     };
 
-    waitForExistAndClick(timeout?: number | undefined): any {
+    waitForExistAndClick(timeout?: number | undefined): void {
         // @ts-ignore
         if (this.waitForExist({timeout: timeout})) {
             // @ts-ignore
@@ -53,10 +51,9 @@ class Commands {
             // @ts-ignore
             this.click();
         }
-        return this;
     };
 
-    waitForDisplayedAndClick(timeout?: number | undefined): any {
+    waitForDisplayedAndClick(timeout?: number | undefined): void {
         // @ts-ignore
         if (this.waitForDisplayed({timeout: timeout})) {
             // @ts-ignore
@@ -64,10 +61,9 @@ class Commands {
             // @ts-ignore
             this.click();
         }
-        return this;
     };
 
-    waitForEnabledAndClick(timeout?: number | undefined): any {
+    waitForEnabledAndClick(timeout?: number | undefined): void {
         // @ts-ignore
         if (this.waitForEnabled({timeout: timeout})) {
             // @ts-ignore
@@ -75,9 +71,8 @@ class Commands {
             // @ts-ignore
             this.click();
         }
-        return this;
     };
-    waitForExistAndSetValue(value: any, timeout?: number | undefined): any {
+    waitForExistAndSetValue(value: any, timeout?: number | undefined): void {
         // @ts-ignore
         if (this.waitForExist({timeout: timeout})) {
             // @ts-ignore
@@ -85,45 +80,39 @@ class Commands {
             // @ts-ignore
             this.setValue(value);
         }
-        return this;
     };
 
-    waitForExistAndSelectByValue(value: any, timeout?: number | undefined): any {
+    waitForExistAndSelectByValue(value: any, timeout?: number | undefined): void {
         // @ts-ignore
         if (this.waitForExist({timeout: timeout})) {
             // @ts-ignore
             this.selectByValue(value);
         }
-        return this;
     };
 
-    waitForDisplayedAndSetValue(value: string, timeout?: number | undefined): any {
+    waitForDisplayedAndSetValue(value: string, timeout?: number | undefined): void {
         // @ts-ignore
         if (this.waitForDisplayed({timeout: timeout})) {
             // @ts-ignore
             this.setValue(value);
         }
-        return this;
     };
 
-    waitForEnabledAndSetValue(value: string, timeout?: number | undefined): any {
+    waitForEnabledAndSetValue(value: string, timeout?: number | undefined): void {
         // @ts-ignore
         if (this.waitForEnabled({timeout: timeout})) {
             // @ts-ignore
             this.setValue(value);
         }
-        return this;
     };
-    waitForNotExist(timeout?: number | undefined): any {
+    waitForNotExist(timeout?: number | undefined): void {
         // @ts-ignore
         this.waitForExist({timeout: timeout, reverse: true});
-        return this;
     };
 
-    waitForNotDisplayed(timeout?: number | undefined): any {
+    waitForNotDisplayed(timeout?: number | undefined): void {
         // @ts-ignore
         this.waitForDisplayed({timeout: timeout, reverse: true});
-        return this;
     };
 
     trimText(text: string | number): string {
@@ -172,46 +161,24 @@ class Commands {
         return false;
     };
 
-    setInputValue(originalSetValue:any, value:string ) {
-        //@ts-ignore
-         const webBrowser = browser.capabilities.browserName.toLowerCase();
+    public addCommands(theBrowser: WebdriverIO.Browser | WebdriverIO.MultiRemoteBrowser) {
 
-         if (webBrowser === 'microsoftedge') {
-             browser.execute((el, val) => {
-                 const regex = /\'(.*)\'/; // pulls name out of xpath
-                 const extractedName = el.match(regex)[1];
-
-                 document.getElementsByName(extractedName)[0].focus();
-                 (<HTMLInputElement>document.getElementsByName(extractedName)[0]).value = val;
-                 // @ts-ignore
-             }, $(this.selector), value);
-         }
-         else {
-             originalSetValue(value);
-         }
-     };
-
-    public addCommands(browser: WebdriverIO.BrowserObject) {
-
-        browser.addCommand('logMessage', this.logMessage);
-        browser.addCommand('logScreenshot', this.logScreenshot);
+        theBrowser.addCommand('logMessage', this.logMessage);
+        theBrowser.addCommand('logScreenshot', this.logScreenshot);
 
         //Selector commands
-        browser.addCommand('setCheckBox', this.setCheckBox, true);
-        browser.addCommand('isDisplayedWithin', this.isDisplayedWithin, true);
-        browser.addCommand('waitForExistAndClick', this.waitForExistAndClick, true);
-        browser.addCommand('waitForDisplayedAndClick', this.waitForDisplayedAndClick, true);
-        browser.addCommand('waitForEnabledAndClick', this.waitForDisplayedAndClick, true);
-        browser.addCommand('waitForExistAndSetValue', this.waitForExistAndSetValue, true);
-        browser.addCommand('waitForExistAndSelectByValue', this.waitForExistAndSelectByValue, true);
-        browser.addCommand('waitForDisplayedAndSetValue', this.waitForDisplayedAndSetValue, true);
-        browser.addCommand('waitForEnabledAndSetValue', this.waitForDisplayedAndSetValue, true);
-        browser.addCommand('waitForNotExist', this.waitForNotExist, true);
-        browser.addCommand('waitForNotDisplayed', this.waitForNotDisplayed, true);
-        browser.addCommand('waitUntilTextBecomes', this.waitUntilTextBecomes, true);
-        // browser.overwriteCommand('setValue', (originalSetValue:any, value:string) => {
-        //     this.setInputValue(originalSetValue, value) ;
-        // }, true) ;
+        theBrowser.addCommand('setCheckBox', this.setCheckBox, true);
+        theBrowser.addCommand('isDisplayedWithin', this.isDisplayedWithin, true);
+        theBrowser.addCommand('waitForExistAndClick', this.waitForExistAndClick, true);
+        theBrowser.addCommand('waitForDisplayedAndClick', this.waitForDisplayedAndClick, true);
+        theBrowser.addCommand('waitForEnabledAndClick', this.waitForDisplayedAndClick, true);
+        theBrowser.addCommand('waitForExistAndSetValue', this.waitForExistAndSetValue, true);
+        theBrowser.addCommand('waitForExistAndSelectByValue', this.waitForExistAndSelectByValue, true);
+        theBrowser.addCommand('waitForDisplayedAndSetValue', this.waitForDisplayedAndSetValue, true);
+        theBrowser.addCommand('waitForEnabledAndSetValue', this.waitForDisplayedAndSetValue, true);
+        theBrowser.addCommand('waitForNotExist', this.waitForNotExist, true);
+        theBrowser.addCommand('waitForNotDisplayed', this.waitForNotDisplayed, true);
+        theBrowser.addCommand('waitUntilTextBecomes', this.waitUntilTextBecomes, true);
     }
 }
 

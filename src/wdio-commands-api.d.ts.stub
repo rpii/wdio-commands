@@ -1,25 +1,35 @@
 // Merge namespace with global WebdriverIO
 declare global {
+
     export namespace WebdriverIO {
         interface Element {
-            setCheckBox: (state: boolean) => Element;
-            setInputValue: (fx:any, value: string) => Element;
+            setCheckBox: (state: boolean) => void;
+            setInputValue: (fx:any, value: string) => void;
             isDisplayedWithin: (timeout?: undefined | number) => boolean;
-            waitForExistAndClick: (timeout?: undefined | number) => Element;
-            waitForDisplayedAndClick: (timeout?: undefined | number) => Element;
-            waitForEnabledAndClick: (timeout?: undefined | number) => Element;
-            waitForExistAndSetValue: (value: string, timeout?: undefined | number) => Element;
-            waitForExistAndSelectByValue: (value: string, timeout?: undefined | number) => Element;
-            waitForDisplayedAndSetValue: (value: string, timeout?: undefined | number) => Element;
-            waitForEnabledAndSetValue: (value: string, timeout?: undefined | number) => Element;
-            waitForNotExist: (timeout?: undefined | number) => Element;
-            waitForNotDisplayed: (timeout?: undefined | number) => Element;
+            waitForExistAndClick: (timeout?: undefined | number) => void;
+            waitForDisplayedAndClick: (timeout?: undefined | number) => void;
+            waitForEnabledAndClick: (timeout?: undefined | number) => void;
+            waitForExistAndSetValue: (value: string, timeout?: undefined | number) => void;
+            waitForExistAndSelectByValue: (value: string, timeout?: undefined | number) => void;
+            waitForDisplayedAndSetValue: (value: string, timeout?: undefined | number) => void;
+            waitForEnabledAndSetValue: (value: string, timeout?: undefined | number) => void;
+            waitForNotExist: (timeout?: undefined | number) => void;
+            waitForNotDisplayed: (timeout?: undefined | number) => void;
             waitUntilTextBecomes: (text:string|RegExp, timeout?: number| undefined) => boolean;
         }
-        interface BrowserObject {
-            logMessage: (message: string) => BrowserObject;
-            logScreenshot: (message: string) => BrowserObject;
+        interface Browser {
+            logMessage: (message: string) => void;
+            logScreenshot: (message: string) => void;
+            addCommand: (name: string, func:Function, force?:boolean) => void;
+
+        }
+        interface MultiRemoteBrowser  {
+            logMessage: (message: string) => void;
+            logScreenshot: (message: string) => void;
+            addCommand: (name: string, func:Function, force?:boolean) => void;
+
         }
     }
+    var browser: WebdriverIO.Browser | WebdriverIO.MultiRemoteBrowser;
 }
 

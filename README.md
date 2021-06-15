@@ -1,6 +1,8 @@
 # @rpii/wdio-commands
 
-####Newest Feature:
+##Newest Features:
+
+    Remove moment.js
 
     Update typescript types for webdriverio 7.7
 

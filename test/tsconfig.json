@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "node",
+      "webdriverio/sync",
+      "@rpii/wdio-report-events",
+      "@types/chai",
+      "@types/mocha",
+      "./lib/wdio-commands-api"
+    ]
+  },
+  "include": [
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "../node_modules",
+    "../src"
+  ],
+  "compileOnSave": false
+}

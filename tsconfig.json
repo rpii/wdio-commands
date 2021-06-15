@@ -21,16 +21,14 @@
     "@rpii/wdio-report-events",
     "chai",
     "mocha",
-    "webdriverio/sync",
-    "./lib/wdio-commands-api"
+    "webdriverio/sync"
   ],
   "include": [
-    "src",
-
+    "src"
   ],
   "exclude": [
     "node_modules",
     "lib",
-    "**/tests/*"
+    "**/test/*"
   ]
 }

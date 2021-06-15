@@ -1,8 +1,10 @@
-const moment = require('moment');
-const path = require('path');
-const fs = require("fs-extra");
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 import ReportEvents from '@rpii/wdio-report-events' ;
 import WebdriverIO  from "../lib/wdio-commands-api" ;
+const path = require('path');
+const fs = require("fs-extra");
 
 let eventReporter = new ReportEvents();
 
@@ -15,7 +17,7 @@ class Commands {
     };
 
     logScreenshot(message: string) {
-        const timestamp = moment().format('YYYYMMDD-HHmmss.SSS');
+        const timestamp = dayjs().utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
         fs.ensureDirSync('reports/html-reports/screenshots/');
         const filepath = path.join('reports/html-reports/screenshots/', timestamp + '.png');
         //@ts-ignore

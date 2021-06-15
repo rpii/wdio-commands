@@ -30,6 +30,5 @@ declare global {
 
         }
     }
-    var browser: WebdriverIO.Browser | WebdriverIO.MultiRemoteBrowser;
 }
 

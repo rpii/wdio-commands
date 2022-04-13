@@ -19,13 +19,13 @@ declare global {
         }
         interface Browser {
             logMessage: (message: string) => void;
-            logScreenshot: (message: string) => void;
+            logScreenshot: (message: string, outputDirectory?: string) => void;
             addCommand: (name: string, func:Function, force?:boolean) => void;
 
         }
         interface MultiRemoteBrowser  {
             logMessage: (message: string) => void;
-            logScreenshot: (message: string) => void;
+            logScreenshot: (message: string, outputDirectory?: string) => void;
             addCommand: (name: string, func:Function, force?:boolean) => void;
 
         }

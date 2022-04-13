@@ -16,10 +16,10 @@ class Commands {
         eventReporter.logMessage(message);
     };
 
-    logScreenshot(message: string) {
+    logScreenshot(message: string, outputDirectory: string = 'reports/html-reports/screenshots/') {
         const timestamp = dayjs().utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
-        fs.ensureDirSync('reports/html-reports/screenshots/');
-        const filepath = path.join('reports/html-reports/screenshots/', timestamp + '.png');
+        fs.ensureDirSync(outputDirectory);
+        const filepath = path.join(outputDirectory, timestamp + '.png');
         //@ts-ignore
         browser.saveScreenshot(filepath);
         eventReporter.logMessage(message);

@@ -3,29 +3,44 @@ declare global {
 
     export namespace WebdriverIO {
         interface Element {
-            setCheckBox: (state: boolean) => void;
-            setInputValue: (fx:any, value: string) => void;
-            isDisplayedWithin: (timeout?: undefined | number) => boolean;
-            waitForExistAndClick: (timeout?: undefined | number) => void;
-            waitForDisplayedAndClick: (timeout?: undefined | number) => void;
-            waitForEnabledAndClick: (timeout?: undefined | number) => void;
-            waitForExistAndSetValue: (value: string, timeout?: undefined | number) => void;
-            waitForExistAndSelectByValue: (value: string, timeout?: undefined | number) => void;
-            waitForDisplayedAndSetValue: (value: string, timeout?: undefined | number) => void;
-            waitForEnabledAndSetValue: (value: string, timeout?: undefined | number) => void;
-            waitForNotExist: (timeout?: undefined | number) => void;
-            waitForNotDisplayed: (timeout?: undefined | number) => void;
-            waitUntilTextBecomes: (text:string|RegExp, timeout?: number| undefined) => boolean;
+            setCheckBox: (state: boolean) => Promise<void>;
+            setInputValue: (fx:any, value: string) => Promise<void>;
+            isDisplayedWithin: (timeout?: undefined | number) => Promise<boolean>;
+            waitForExistAndClick: (timeout?: undefined | number) => Promise<void>;
+            waitForDisplayedAndClick: (timeout?: undefined | number) => Promise<void>;
+            waitForEnabledAndClick: (timeout?: undefined | number) => Promise<void>;
+            waitForExistAndSetValue: (value: string, timeout?: undefined | number) => Promise<void>;
+            waitForExistAndSelectByValue: (value: string, timeout?: undefined | number) => Promise<void>;
+            waitForDisplayedAndSetValue: (value: string, timeout?: undefined | number) => Promise<void>;
+            waitForEnabledAndSetValue: (value: string, timeout?: undefined | number) => Promise<void>;
+            waitForNotExist: (timeout?: undefined | number) => Promise<void>;
+            waitForNotDisplayed: (timeout?: undefined | number) => Promise<void>;
+            waitUntilTextBecomes: (text:string|RegExp, timeout?: number| undefined) => Promise<boolean>;
+        }
+        interface ChainablePromiseElement<Element> {
+            setCheckBox: (state: boolean) => Promise<void>;
+            setInputValue: (fx:any, value: string) => Promise<void>;
+            isDisplayedWithin: (timeout?: undefined | number) => Promise<boolean>;
+            waitForExistAndClick: (timeout?: undefined | number) => Promise<void>;
+            waitForDisplayedAndClick: (timeout?: undefined | number) => Promise<void>;
+            waitForEnabledAndClick: (timeout?: undefined | number) => Promise<void>;
+            waitForExistAndSetValue: (value: string, timeout?: undefined | number) => Promise<void>;
+            waitForExistAndSelectByValue: (value: string, timeout?: undefined | number) => Promise<void>;
+            waitForDisplayedAndSetValue: (value: string, timeout?: undefined | number) => Promise<void>;
+            waitForEnabledAndSetValue: (value: string, timeout?: undefined | number) => Promise<void>;
+            waitForNotExist: (timeout?: undefined | number) => Promise<void>;
+            waitForNotDisplayed: (timeout?: undefined | number) => Promise<void>;
+            waitUntilTextBecomes: (text:string|RegExp, timeout?: number| undefined) => Promise<boolean>;
         }
         interface Browser {
-            logMessage: (message: string) => void;
-            logScreenshot: (message: string) => void;
+            logMessage: (message: string) => Promise<void>;
+            logScreenshot: (message: string) => Promise<void>;
             addCommand: (name: string, func:Function, force?:boolean) => void;
 
         }
         interface MultiRemoteBrowser  {
-            logMessage: (message: string) => void;
-            logScreenshot: (message: string) => void;
+            logMessage: (message: string) => Promise<void>;
+            logScreenshot: (message: string) => Promise<void>;
             addCommand: (name: string, func:Function, force?:boolean) => void;
 
         }

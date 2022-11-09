@@ -8,113 +8,124 @@ const fs = require("fs-extra");
 
 let eventReporter = new ReportEvents();
 
-
-
 class Commands {
 
-    logMessage(message: string) {
+    async  logMessage(message: string) {
         eventReporter.logMessage(message);
+        return Promise.resolve() ;
     };
 
-    logScreenshot(message: string) {
+    async logScreenshot(message: string) {
         const timestamp = dayjs().utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
         fs.ensureDirSync('reports/html-reports/screenshots/');
         const filepath = path.join('reports/html-reports/screenshots/', timestamp + '.png');
         //@ts-ignore
-        browser.saveScreenshot(filepath);
+        await browser.saveScreenshot(filepath);
         eventReporter.logMessage(message);
         eventReporter.logScreenshot(filepath);
+        return Promise.resolve() ;
     };
 
     //Selector commands
 
-    setCheckBox(state: boolean): void {
+    async setCheckBox(state: boolean): Promise<void> {
         // @ts-ignore
-        if (this.isSelected() !== state) {
+        if (await this.isSelected() !== state) {
             // @ts-ignore
-            this.click();
+            await this.click();
         }
+        return Promise.resolve() ;
     };
 
-    isDisplayedWithin(timeout?: number | undefined): boolean {
+    async isDisplayedWithin(timeout?: number | undefined): Promise<boolean> {
         try {
             // @ts-ignore
-            return this.waitForDisplayed({timeout: timeout});
+            return await this.waitForDisplayed({timeout: timeout});
         } catch (err) {
-            return false;
+            return Promise.resolve(false) ;
         }
     };
 
-    waitForExistAndClick(timeout?: number | undefined): void {
+    async waitForExistAndClick(timeout?: number | undefined): Promise<void> {
         // @ts-ignore
-        if (this.waitForExist({timeout: timeout})) {
+        if (await this.waitForExist({timeout: timeout})) {
             // @ts-ignore
-            this.scrollIntoView();
+            await this.scrollIntoView();
             // @ts-ignore
-            this.click();
+            await this.click();
         }
+        return Promise.resolve() ;
     };
 
-    waitForDisplayedAndClick(timeout?: number | undefined): void {
+    async waitForDisplayedAndClick(timeout?: number | undefined): Promise<void> {
         // @ts-ignore
-        if (this.waitForDisplayed({timeout: timeout})) {
+        if (await this.waitForDisplayed({timeout: timeout})) {
             // @ts-ignore
-            this.scrollIntoView();
+            await this.scrollIntoView();
             // @ts-ignore
-            this.click();
+            await this.click();
         }
+        return Promise.resolve() ;
     };
 
-    waitForEnabledAndClick(timeout?: number | undefined): void {
+    async waitForEnabledAndClick(timeout?: number | undefined): Promise<void> {
         // @ts-ignore
-        if (this.waitForEnabled({timeout: timeout})) {
+        if (await this.waitForEnabled({timeout: timeout})) {
             // @ts-ignore
-            this.scrollIntoView();
+            await this.scrollIntoView();
             // @ts-ignore
-            this.click();
+            await this.click();
         }
-    };
-    waitForExistAndSetValue(value: any, timeout?: number | undefined): void {
-        // @ts-ignore
-        if (this.waitForExist({timeout: timeout})) {
-            // @ts-ignore
-            this.scrollIntoView();
-            // @ts-ignore
-            this.setValue(value);
-        }
+        return Promise.resolve() ;
     };
 
-    waitForExistAndSelectByValue(value: any, timeout?: number | undefined): void {
+    async waitForExistAndSetValue(value: any, timeout?: number | undefined): Promise<void> {
         // @ts-ignore
-        if (this.waitForExist({timeout: timeout})) {
+        if (await this.waitForExist({timeout: timeout})) {
             // @ts-ignore
-            this.selectByValue(value);
+            await this.scrollIntoView();
+            // @ts-ignore
+            await this.setValue(value);
         }
+        return Promise.resolve() ;
     };
 
-    waitForDisplayedAndSetValue(value: string, timeout?: number | undefined): void {
+    async waitForExistAndSelectByValue(value: any, timeout?: number | undefined): Promise<void> {
         // @ts-ignore
-        if (this.waitForDisplayed({timeout: timeout})) {
+        if (await this.waitForExist({timeout: timeout})) {
             // @ts-ignore
-            this.setValue(value);
+            await this.selectByValue(value);
         }
+        return Promise.resolve() ;
     };
 
-    waitForEnabledAndSetValue(value: string, timeout?: number | undefined): void {
+    async waitForDisplayedAndSetValue(value: string, timeout?: number | undefined): Promise<void> {
         // @ts-ignore
-        if (this.waitForEnabled({timeout: timeout})) {
+        if (await  this.waitForDisplayed({timeout: timeout})) {
             // @ts-ignore
-            this.setValue(value);
+            await  this.setValue(value);
         }
-    };
-    waitForNotExist(timeout?: number | undefined): void {
-        // @ts-ignore
-        this.waitForExist({timeout: timeout, reverse: true});
+        return Promise.resolve() ;
     };
 
-    waitForNotDisplayed(timeout?: number | undefined): void {
+    async waitForEnabledAndSetValue(value: string, timeout?: number | undefined): Promise<void> {
         // @ts-ignore
-        this.waitForDisplayed({timeout: timeout, reverse: true});
+        if (await this.waitForEnabled({timeout: timeout})) {
+            // @ts-ignore
+            await this.setValue(value);
+        }
+        return Promise.resolve() ;
+    };
+    async waitForNotExist(timeout?: number | undefined): Promise<void> {
+        // @ts-ignore
+        await this.waitForExist({timeout: timeout, reverse: true});
+        return Promise.resolve() ;
+    };
+
+    async waitForNotDisplayed(timeout?: number | undefined): Promise<void> {
+        // @ts-ignore
+        await this.waitForDisplayed({timeout: timeout, reverse: true});
+        return Promise.resolve() ;
     };
 
     trimText(text: string | number): string {
@@ -126,7 +137,7 @@ class Commands {
             .replace(/\s+/, ' ') // replace sequences of whitespace characters by a single space
     };
 
-    waitUntilTextBecomes(text: string | RegExp, timeout?: number | undefined): boolean {
+    async waitUntilTextBecomes(text: string | RegExp, timeout?: number | undefined): Promise<boolean> {
         let value: string;
         try {
             let fn = (text instanceof RegExp)
@@ -156,11 +167,11 @@ class Commands {
                 }
                 return fn(value);
             }, {timeout:  timeout});
-            return true;
+            return Promise.resolve(true) ;
         } catch (ex) {
             console.log(ex);
         }
-        return false;
+        return Promise.resolve(false) ;
     };
 
     public addCommands(theBrowser: WebdriverIO.Browser | WebdriverIO.MultiRemoteBrowser) {

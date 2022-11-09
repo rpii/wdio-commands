@@ -3,4 +3,5 @@ src
 *.log
 node_modules
 tests
+.yarn
 

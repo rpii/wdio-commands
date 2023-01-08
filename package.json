@@ -1,9 +1,10 @@
 {
   "name": "@rpii/wdio-commands",
-  "version": "7.1.0",
+  "version": "8.0.2",
   "description": "Add task based commands to simplify the webdriverio api,compatible with v7",
-  "main": "lib/wdio-commands",
+  "main": "lib/wdio-commands.js",
   "types": "lib/wdio-commands-api.d.ts",
+  "type": "module",
   "scripts": {
     "clean": "rimraf ./lib",
     "build": "tsc && node ./concat-types.js && rimraf ./lib/wdio-commands.d.ts",
@@ -28,23 +29,23 @@
   },
   "homepage": "https://github.com/rpii/wdio-commands#readme",
   "devDependencies": {
-    "@rpii/wdio-report-events": "^0.1.4",
-    "@types/node": "^15.12.0",
-    "webdriverio": "^7.25.4",
+    "@rpii/wdio-report-events": "latest",
+    "@types/node": "^18.11.18",
     "mocha": "^9.0.3",
-    "ts-mocha": "^8.0.0",
-    "ts-node": "^10.2.0",
-    "tsconfig-paths": "^3.10.1",
-    "typescript": "^4.3.5"
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4",
+    "webdriverio": "^8.1.2"
   },
   "dependencies": {
-    "dayjs": "^1.10.5",
     "concat": "^1.0.3",
-    "fs-extra": "^10.0.0",
+    "dayjs": "^1.10.5",
+    "fs-extra": "^11.1.0",
     "rimraf": "^3.0.2",
     "typescript-string-operations": "^1.5.0"
   },
   "mocha": {
     "ui": "tdd"
-  }
+  },
+  "packageManager": "yarn@3.3.1"
 }

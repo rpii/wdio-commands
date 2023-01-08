@@ -1,10 +1,9 @@
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import utc from 'dayjs/plugin/utc.js';
 dayjs.extend(utc);
 import ReportEvents from '@rpii/wdio-report-events' ;
-import WebdriverIO  from "../lib/wdio-commands-api" ;
-const path = require('path');
-const fs = require("fs-extra");
+import WebdriverIO  from "../lib/wdio-commands-api.js" ;
+import path from 'path';
 
 let eventReporter = new ReportEvents();
 
@@ -17,7 +16,7 @@ class Commands {
 
     async logScreenshot(message: string) {
         const timestamp = dayjs().utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
-        fs.ensureDirSync('reports/html-reports/screenshots/');
+        // path..ensureDirSync('reports/html-reports/screenshots/');
         const filepath = path.join('reports/html-reports/screenshots/', timestamp + '.png');
         //@ts-ignore
         await browser.saveScreenshot(filepath);
@@ -155,6 +154,7 @@ class Commands {
                     // @ts-ignore
                     value = await $(this.selector).getText();
                 } catch (error) {
+                    //@ts-ignore
                     if (error.name === 'stale element reference') {
                         //TODO research how to fix fix this
                         // const element = await refetchElement(this, commandName)

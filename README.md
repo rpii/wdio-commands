@@ -1,6 +1,7 @@
 # @rpii/wdio-commands
 
 ##Newest Features:
+    Updated for module compatibility with webdriver 8
 
     Update to async mode in webdriverio 
         -- may get some tsc warnings

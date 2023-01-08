@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "es2017",
-    "module": "commonjs",
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution":"node",
     "declaration": true,
     "outDir": "./lib",
     "strict": true,
@@ -20,8 +21,7 @@
     "node",
     "@rpii/wdio-report-events",
     "chai",
-    "mocha",
-    "webdriverio/sync"
+    "mocha"
   ],
   "include": [
     "src"
